@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/copy01.css" />
+    <link
+      rel="stylesheet"
+      href="../module/bootstrap-5.2.2-dist/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="../module/fontawesome-free-6.2.1-web/css/all.min.css"
+    />
+    <script src="../module/bootstrap-5.2.2-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../module/jquery-3.6.1.min.js"></script>
+    <script src="../module/canvasjs-3.7.3/jquery.canvasjs.min.js"></script>
+    <script src="../module/moment-with-locales.min.js"></script>
+    <!-- highcharts -->
+    <script src="../module/highcharts-10.3.2/code/highcharts.js"></script>
+    <script src="../module/highcharts-10.3.2/code/modules/data.js"></script>
+    <script src="../module/highcharts-10.3.2/code/modules/drilldown.js"></script>
+    <!-- 右上menu控制 <script src="https://code.highcharts.com/modules/exporting.js"></script> -->
+    <script src="../module/highcharts-10.3.2/code/modules/export-data.js"></script>
+    <!-- <script src="https://code.highcharts.com/modules/accessibility.js"></script> -->
+    <!-- highcharts -->
+    <title>EME 戰情看板-1</title>
+  </head>
+  <body>
+    <div class="d-flex row header">
+      <div class="bigTitleLeft col-3"></div>
+      <h1 class="bigTitle col">EME 戰情看板-1</h1>
+      <div class="d-flex bigTitleRight col-3">
+        <i class="fa-regular fa-clock textColor"></i>
+        <div id="currentTime" class="currentTime textColor"></div>
+        <button type="button" id="chartLine" class="btn btn-link">
+          <i class="fa-solid fa-link textColor"></i>
+        </button>
+        <button type="button" id="barsStaggered" class="btn btn-link">
+          <i class="fa-solid fa-power-off textColor"></i>
+        </button>
+      </div>
+    </div>
+    <div class="d-flex main">
+      <div class="left">
+        <div>
+          <div class="d-flex" style="background-color: #000000;">
+            <i class="fa-regular fa-sun fa-spin"></i>
+            <h2 class="textColor">巡查視頻問題</h2>
+          </div>
+          <div class="inspection">
+            <ul class="list-group list-group-flush roundTrip">
+              <li class="list-group-item leftUpList">
+                <span class="leftUpLeft">哈哈哈</span>
+                <span class="leftUpMiddle">1號出口監控點</span>
+                <span class="leftUpRight">我叫黃色</span>
+              </li>
+              <li class="list-group-item leftUpList">
+                <span class="leftUpLeft">哈哈哈</span>
+                <span class="leftUpMiddle">2號出口監控點</span>
+                <span class="leftUpRight">我叫黃色</span>
+              </li>
+              <li class="list-group-item leftUpList">
+                <span class="leftUpLeft">哈哈哈</span>
+                <span class="leftUpMiddle">3號出口監控點</span>
+                <span class="leftUpRight">我叫黃色</span>
+              </li>
+              <li class="list-group-item leftUpList">
+                <span class="leftUpLeft">哈哈哈</span>
+                <span class="leftUpMiddle">4號出口監控點</span>
+                <span class="leftUpRight">我叫黃色</span>
+              </li>
+              <li class="list-group-item leftUpList">
+                <span class="leftUpLeft">哈哈哈</span>
+                <span class="leftUpMiddle">5號出口監控點</span>
+                <span class="leftUpRight">我叫黃色</span>
+              </li>
+              <li class="list-group-item leftUpList">
+                <span class="leftUpLeft">哈哈哈</span>
+                <span class="leftUpMiddle">6號出口監控點</span>
+                <span class="leftUpRight">我叫黃色</span>
+              </li>
+              <li class="list-group-item leftUpList">
+                <span class="leftUpLeft">哈哈哈</span>
+                <span class="leftUpMiddle">7號出口監控點</span>
+                <span class="leftUpRight">我叫黃色</span>
+              </li>
+              <li class="list-group-item leftUpList">
+                <span class="leftUpLeft">哈哈哈</span>
+                <span class="leftUpMiddle">8號出口監控點</span>
+                <span class="leftUpRight">我叫黃色</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="leftDown">
+          <div class="d-flex">
+            <i class="fa-regular fa-sun fa-spin"></i>
+            <h2 class="textColor">巡查視頻問題統計</h2>
+          </div>
+          <div class="row statistics">
+            <div class="col d-flex">
+              <label class="problem">問題總數</label>
+              <input class="form-control" type="text" value="234" readonly />
+            </div>
+            <div class="col d-flex">
+              <label class="already">已整改</label>
+              <input class="form-control" type="text" value="34" readonly />
+            </div>
+            <div class="col d-flex">
+              <label class="notYet">未整改</label>
+              <input class="form-control" type="text" value="200" readonly />
+            </div>
+          </div>
+          <div>
+            <div id="scatterChart" style="height: 300px; width: 100%"></div>
+          </div>
+        </div>
+      </div>
+      <div class="center">
+        <div class="d-flex circle">
+          <div class="circleLeft">
+            <i
+              class="fa-solid fa-circle-notch fa-spin fa-spin-reverse runLeft"
+            ></i>
+            <div class="runLeftText">
+              <div class="runLeftTitle">今日抓拍</div>
+              <div class="runLeftInfo">1245條</div>
+            </div>
+          </div>
+          <div class="circleRight">
+            <i class="fa-solid fa-circle-notch fa-spin runRight"></i>
+            <div class="runRightText">
+              <div class="runRightTitle">抓拍總數</div>
+              <div class="runRightInfo">3421條</div>
+            </div>
+          </div>
+        </div>
+        <div class="d-flex my-3">
+          <i class="fa-regular fa-sun fa-spin"></i>
+          <h2 class="textColor">預警信息推送</h2>
+        </div>
+        <div class="d-flex justify-content-center infoPush">
+          <div class="infoPushImg">
+            <img src="../img/12.png" />
+          </div>
+          <div class="infoPushImg">
+            <img src="../img/12.png" />
+          </div>
+          <div class="infoPushImg">
+            <img src="../img/12.png" />
+          </div>
+        </div>
+        <div class="d-flex my-3">
+          <i class="fa-regular fa-sun fa-spin"></i>
+          <h2 class="textColor">預警信息統計</h2>
+        </div>
+        <div class="d-flex justify-content-end">
+          <button
+            type="button"
+            id="person"
+            class="btn btn-link clickStyle clickColor"
+          >
+            有人統計
+          </button>
+          <button
+            type="button"
+            id="noPerson"
+            class="btn btn-link clickStyle unClickColor"
+          >
+            無人統計
+          </button>
+        </div>
+        <div class="barContainer">
+          <ul class="barBox">
+            <li>
+              <div class="barLine">
+                <span class="barHeight" style="height: 25%"></span>
+              </div>
+              <div class="barName">台北</div>
+            </li>
+            <li>
+              <div class="barLine">
+                <span class="barHeight" style="height: 75%"></span>
+              </div>
+              <div class="barName">台中</div>
+            </li>
+            <li>
+              <div class="barLine">
+                <span class="barHeight" style="height: 60%"></span>
+              </div>
+              <div class="barName">屏東</div>
+            </li>
+            <li>
+              <div class="barLine">
+                <span class="barHeight" style="height: 85%"></span>
+              </div>
+              <div class="barName">高雄</div>
+            </li>
+            <li>
+              <div class="barLine">
+                <span class="barHeight" style="height: 20%"></span>
+              </div>
+              <div class="barName">台東</div>
+            </li>
+            <li>
+              <div class="barLine">
+                <span class="barHeight" style="height: 30%"></span>
+              </div>
+              <div class="barName">宜蘭</div>
+            </li>
+            <li>
+              <div class="barLine">
+                <span class="barHeight" style="height: 40%"></span>
+              </div>
+              <div class="barName">花蓮</div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="right">
+        <div class="d-flex">
+          <i class="fa-regular fa-sun fa-spin"></i>
+          <h2 class="textColor">全市監控點位統計</h2>
+        </div>
+        <figure class="highcharts-figure">
+          <div id="columnChart"></div>
+        </figure>
+        <div class="d-flex">
+          <i class="fa-regular fa-sun fa-spin"></i>
+          <button
+            type="button"
+            id="download"
+            class="btn btn-link clickStyle clickColor"
+          >
+            <h2>資源下載</h2>
+          </button>
+          <button
+            type="button"
+            id="post"
+            class="btn btn-link clickStyle unClickColor"
+          >
+            <h2>系統公告</h2>
+          </button>
+        </div>
+        <div id="downloads" class="downloads show">
+          <div class="d-flex justify-content-around my-3">
+            <a
+              href="https://www.google-analytics.com/analytics.js"
+              download="file"
+            ></a>
+            <button class="d-flex fileBtn">
+              <i class="fa-regular fa-file-word rightdownIcon"></i>
+              <div class="fileText">結算單.docx</div>
+            </button>
+            <a
+              href="https://www.google-analytics.com/analytics.js"
+              download="file"
+            ></a>
+            <button class="d-flex fileBtn">
+              <i class="fa-regular fa-file-excel rightdownIcon"></i>
+              <div class="fileText">報表.xlsx</div>
+            </button>
+          </div>
+          <div class="d-flex justify-content-around my-3">
+            <a
+              href="https://www.google-analytics.com/analytics.js"
+              download="file"
+            ></a>
+            <button class="d-flex fileBtn">
+              <i class="fa-regular fa-file-word rightdownIcon"></i>
+              <div class="fileText">結算單.docx</div>
+            </button>
+            <a
+              href="https://www.google-analytics.com/analytics.js"
+              download="file"
+            ></a>
+            <button class="d-flex fileBtn">
+              <i class="fa-regular fa-file-excel rightdownIcon"></i>
+              <div class="fileText">報表.xlsx</div>
+            </button>
+          </div>
+          <div class="d-flex justify-content-around my-3">
+            <a
+              href="https://www.google-analytics.com/analytics.js"
+              download="file"
+            ></a>
+            <button class="d-flex fileBtn">
+              <i class="fa-regular fa-file-word rightdownIcon"></i>
+              <div class="fileText">結算單.docx</div>
+            </button>
+            <a
+              href="https://www.google-analytics.com/analytics.js"
+              download="file"
+            ></a>
+            <button class="d-flex fileBtn">
+              <i class="fa-regular fa-file-excel rightdownIcon"></i>
+              <div class="fileText">報表.xlsx</div>
+            </button>
+          </div>
+          <div class="d-flex justify-content-around my-3">
+            <a
+              href="https://www.google-analytics.com/analytics.js"
+              download="file"
+            ></a>
+            <button class="d-flex fileBtn">
+              <i class="fa-regular fa-file-word rightdownIcon"></i>
+              <div class="fileText">結算單.docx</div>
+            </button>
+            <a
+              href="https://www.google-analytics.com/analytics.js"
+              download="file"
+            ></a>
+            <button class="d-flex fileBtn">
+              <i class="fa-regular fa-file-excel rightdownIcon"></i>
+              <div class="fileText">報表.xlsx</div>
+            </button>
+          </div>
+        </div>
+        <div id="posts" class="posts hide">
+          <ul class="list-group list-group-flush postsRound">
+            <li class="list-group-item rightDownList">1. 公告一</li>
+            <li class="list-group-item rightDownList">2. 公告二</li>
+            <li class="list-group-item rightDownList">3. 公告三</li>
+            <li class="list-group-item rightDownList">4. 公告四</li>
+            <li class="list-group-item rightDownList">5. 公告五</li>
+            <li class="list-group-item rightDownList">6. 公告六</li>
+            <li class="list-group-item rightDownList">7. 公告七</li>
+            <li class="list-group-item rightDownList">8. 公告八</li>
+          </ul>
+        </div>
+      </div>
+      <!--預警信息推送彈窗-->
+      <div class="popUp">
+        <img src="../img/12.png" />
+        <div class="popUpContainer">
+          <div class="popUpTitle d-flex">
+            <i class="fa-regular fa-sun fa-spin"></i>
+            <h2 class="textColor">详情</h2>
+          </div>
+          <div class="popUpInfo">
+            <table>
+              <tr>
+                <td>監控位置</td>
+                <td>辦公室</td>
+              </tr>
+              <tr>
+                <td>預警時間</td>
+                <td id="alarmTime" class="currentTime"></td>
+              </tr>
+              <tr>
+                <td>預警類型</td>
+                <td>辦公室無人</td>
+              </tr>
+              <tr>
+                <td>預警狀態</td>
+                <td>已處理</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="../js/fackData.js"></script>
+  <script src="../js/copy01.js"></script>
+</html>
